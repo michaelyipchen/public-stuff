@@ -1,5 +1,7 @@
 --[[
-
+opts = {
+        processor = "magick_cli",
+    }
 =====================================================================
 ==================== READ THIS BEFORE CONTINUING ====================
 =====================================================================
@@ -96,7 +98,7 @@ do
   -- See `:help mapleader`
   --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
   vim.g.mapleader = ' '
-  vim.g.maplocalleader = ' '
+  vim.g.maplocalleader = ','
 
   -- Set to true if you have a Nerd Font installed and selected in the terminal
   vim.g.have_nerd_font = false
@@ -235,6 +237,9 @@ do
   vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
   vim.keymap.set('i', 'jk', '<Esc>', { silent = true })
   vim.keymap.set('n', '<leader>e', ':NvimTreeFocus<CR>', { desc = 'NvimTreeFocus' })
+  -- vim.keymap.set('n', '<leader>ee', ':NvimTreeClose<CR>', { desc = 'NvimTreeFocus' })
+  -- vim.keymap.set('n', '<leader>ef', ':NvimTreeFindFileToggle<CR>', { desc = 'NvimTreeFocus' })
+  vim.keymap.set('n', '<leader>x', '<cmd>bprevious <bar> bdelete #<CR>', { desc = 'Close current buffer' })
 
   -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
   -- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
@@ -534,6 +539,12 @@ do
 
   -- See `:help telescope` and `:help telescope.setup()`
   require('telescope').setup {
+    pickers = {
+      buffers = {
+        line_positions = true,
+        initial_mode = 'normal',
+      },
+    },
     -- You can put your default mappings / updates / etc. in here
     --  All the info you're looking for is in `:help telescope.setup()`
     --
@@ -800,6 +811,47 @@ do
     },
   }
 
+  vim.pack.add {
+    gh 'R-nvim/R.nvim',
+  }
+
+  vim.pack.add {
+    gh 'nvim-lua/plenary.nvim',
+  }
+  vim.pack.add {
+    gh 'kdheepak/lazygit.nvim',
+  }
+  vim.keymap.set('n', '<leader>lg', ':LazyGit<CR>', { desc = 'LazyGit' })
+
+  vim.pack.add {
+    { src = 'https://github.com/3rd/image.nvim' },
+  }
+  vim.pack.add {
+    { src = 'https://github.com/akinsho/bufferline.nvim' },
+  }
+  vim.opt.termguicolors = true
+  require('bufferline').setup {
+    options = {
+      -- ... your existing configuration options
+      offsets = {
+        {
+          filetype = 'NvimTree',
+          text = 'File Explorer', -- Text displayed above the NvimTree window
+          text_align = 'left', -- Alignment of the text ("left", "center", "right")
+        },
+      },
+    },
+  }
+
+  -- vim.pack.add {
+  --   { gh 'nvim-tree/nvim-web-devicons' },
+  --   { gh 'akinsho/bufferline.nvim' },
+  -- }
+
+  require('image').setup {
+    processor = 'magick_cli',
+  }
+
   -- Automatically install LSPs and related tools to stdpath for Neovim
   require('mason').setup {}
 
@@ -854,6 +906,7 @@ do
     },
     -- You can also specify external formatters in here.
     formatters_by_ft = {
+      r = { 'air' },
       -- rust = { 'rustfmt' },
       -- Conform can also run multiple formatters sequentially
       -- python = { "isort", "black" },
