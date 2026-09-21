@@ -236,10 +236,8 @@ do
   vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
   vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
   vim.keymap.set('i', 'jk', '<Esc>', { silent = true })
-  vim.keymap.set('n', '<leader>e', ':NvimTreeFocus<CR>', { desc = 'NvimTreeFocus' })
-  -- vim.keymap.set('n', '<leader>ee', ':NvimTreeClose<CR>', { desc = 'NvimTreeFocus' })
-  -- vim.keymap.set('n', '<leader>ef', ':NvimTreeFindFileToggle<CR>', { desc = 'NvimTreeFocus' })
-  vim.keymap.set('n', '<leader>x', '<cmd>bprevious <bar> bdelete #<CR>', { desc = 'Close current buffer' })
+  -- vim.keymap.set('n', '<leader>x', '<cmd>bprevious <bar> bdelete #<CR>', { desc = 'Close current buffer' })
+  vim.keymap.set('n', '<leader>x', ':bdelete<CR>', { desc = 'Close current buffer' })
 
   -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
   -- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
@@ -810,6 +808,9 @@ do
       relativenumber = true,
     },
   }
+  vim.keymap.set('n', '<leader>ee', ':NvimTreeFocus<CR>', { desc = 'NvimTreeFocus' })
+  vim.keymap.set('n', '<leader>ec', ':NvimTreeClose<CR>', { desc = 'NvimTreeClose' })
+  vim.keymap.set('n', '<leader>ef', ':NvimTreeFindFileToggle<CR>', { desc = 'NvimTreeFindFileToggle' })
 
   vim.pack.add {
     gh 'R-nvim/R.nvim',
@@ -1077,10 +1078,10 @@ do
   --  Here are some example plugins that I've included in the Kickstart repository.
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
-  -- require 'kickstart.plugins.debug'
-  -- require 'kickstart.plugins.indent_line'
-  -- require 'kickstart.plugins.lint'
-  -- require 'kickstart.plugins.autopairs'
+  require 'kickstart.plugins.debug'
+  require 'kickstart.plugins.indent_line'
+  require 'kickstart.plugins.lint'
+  require 'kickstart.plugins.autopairs'
   -- require 'kickstart.plugins.neo-tree'
 
   -- NOTE: You can add your own plugins, configuration, etc. in `lua/custom/plugins/*.lua`.
